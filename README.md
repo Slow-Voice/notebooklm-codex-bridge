@@ -45,6 +45,20 @@ Run that command inside the Codex client. It has been re-verified against the Co
 - 结果回流 Codex: 你不需要自己复制粘贴, NotebookLM 的结果会回到当前 Codex 对话中。
 - 来源约束更强: 当你的资料都已经上传进 NotebookLM 后, 这条链路能显著降低“脱离资料乱答”的风险。
 
+### 功能对比表
+
+| 方式 | 直接问 Codex | 手动使用 NotebookLM | NotebookLM Codex Bridge |
+| --- | --- | --- | --- |
+| 是否依赖你上传的来源 | 弱 | 强 | 强 |
+| 是否要频繁切网页 | 否 | 是 | 否 |
+| 是否支持多 notebook 智能选择 | 否 | 基本靠手动 | 是 |
+| 是否支持持久登录复用 | 不适用 | 浏览器自己记忆 | 是 |
+| 是否适合私有资料问答 | 一般 | 很适合 | 很适合 |
+| 是否能直接把结果带回 Codex | 否 | 需要手动复制 | 是 |
+| 是否适合长期工作流 | 一般 | 中等 | 很适合 |
+
+这个表最想表达的一点是: 这个项目不是为了替代 Codex, 也不是为了替代 NotebookLM, 而是把两者最有用的部分接到一起。
+
 ### 为什么它比“直接问模型”更有意义
 
 很多人第一次看到这个项目时, 会问一句: “我为什么不直接问 Codex?”
@@ -154,6 +168,20 @@ $NotebookLM Bridge 帮我找乳腺癌那个 notebook, 总结它的预测方案
 
 这种体验的重点不是命令多复杂, 恰恰相反, 是你几乎不用记太多命令。
 
+### 快速开始流程图
+
+```mermaid
+flowchart LR
+    A["在 Codex 中执行<br/>$skill install ..."] --> B["首次使用时完成 Google 登录"]
+    B --> C["刷新或维护本地 notebook library"]
+    C --> D["在 Codex 里输入<br/>$NotebookLM Bridge 你的问题"]
+    D --> E["skill 自动选择 notebook"]
+    E --> F["浏览器自动化向 NotebookLM 提问"]
+    F --> G["答案回到当前 Codex 对话"]
+```
+
+如果你只想快速理解整个项目, 其实看上面这张图就够了。安装一次, 登录一次, 后面就可以把 NotebookLM 当成 Codex 背后的知识来源来用。
+
 ### 项目结构一眼看懂
 
 这个仓库目前是“项目介绍仓库 + 可安装 skill 目录”的组织方式。
@@ -182,6 +210,32 @@ notebooklm-codex-bridge/
 - 如果你非常敏感, 建议为自动化流程使用专门的 Google 账号。
 - 它的目标是减少幻觉, 不是承诺绝对不会出错。
 - notebook 选择是智能匹配, 不是魔法, notebook 的命名和描述越清晰, 路由通常越稳定。
+
+### 常见问题 FAQ
+
+#### 1. 我是不是还要手动打开 NotebookLM?
+
+通常不需要。这个 skill 的目标就是让你主要停留在 Codex 里, 由它在后台完成 NotebookLM 交互。
+
+#### 2. 我是不是每次都要重新登录 Google?
+
+不需要。首次登录完成后, skill 会复用本地保存的浏览器状态。
+
+#### 3. 我可以直接用中文提问吗?
+
+可以。你可以在 Codex 中直接说中文, skill 会走更稳定的内部处理路径。
+
+#### 4. 它是不是官方 NotebookLM API?
+
+不是。当前方案的核心是浏览器自动化, 这是为了在没有公开官方 API 的现实前提下, 仍然把这个工作流真正做出来。
+
+#### 5. 它能完全杜绝幻觉吗?
+
+不能。更准确的说法是: 它能显著增强“基于你自己来源材料回答”的能力, 从而降低幻觉风险, 但不能承诺绝对零错误。
+
+#### 6. 我什么时候最该用这个 skill?
+
+当你已经把资料整理到 NotebookLM, 又希望在 Codex 里直接完成提问、总结、追问、写作辅助时, 这就是最适合的场景。
 
 ### 一句话总结
 
@@ -216,6 +270,20 @@ Its main capabilities include:
 - Real browser automation for NotebookLM interaction
 - Answer handoff back into Codex chat
 - Stronger source grounding for private or specialized material
+
+### Feature comparison
+
+| Approach | Ask Codex directly | Use NotebookLM manually | NotebookLM Codex Bridge |
+| --- | --- | --- | --- |
+| Grounded in your uploaded sources | Weak | Strong | Strong |
+| Requires app switching | No | Yes | No |
+| Smart routing across notebooks | No | Mostly manual | Yes |
+| Persistent reusable login flow | Not applicable | Browser-only | Yes |
+| Good for private materials | Partial | Strong | Strong |
+| Returns results directly into Codex | No | Manual copy-paste | Yes |
+| Good for long-term workflow use | Medium | Medium | Strong |
+
+The point of this comparison is not that Codex or NotebookLM should replace each other. The point is that this project combines the strongest part of each tool into one smoother workflow.
 
 ### Why this matters
 
@@ -310,6 +378,20 @@ $NotebookLM Bridge find the breast cancer notebook and summarize its prediction 
 
 The goal is to keep the interaction natural and short.
 
+### Quick-start flow
+
+```mermaid
+flowchart LR
+    A["Run in Codex<br/>$skill install ..."] --> B["Complete one-time Google sign-in"]
+    B --> C["Refresh or manage your local notebook library"]
+    C --> D["Ask in Codex<br/>$NotebookLM Bridge your question"]
+    D --> E["The skill picks the best notebook"]
+    E --> F["Browser automation asks NotebookLM"]
+    F --> G["The answer comes back into Codex chat"]
+```
+
+If you want the shortest mental model, the diagram above is it: install once, sign in once, then use NotebookLM as a grounded knowledge layer behind Codex.
+
 ### Repository layout
 
 This repository is organized as a project-introduction root plus an installable skill directory.
@@ -338,6 +420,32 @@ Please keep these boundaries in mind:
 - A dedicated Google account is safer for automation-heavy workflows.
 - It is designed to reduce hallucination risk, not eliminate all mistakes.
 - Notebook routing is heuristic, so clear notebook names and descriptions help.
+
+### FAQ
+
+#### 1. Do I still need to open NotebookLM manually?
+
+Usually no. The goal of this skill is to let you stay in Codex while the NotebookLM interaction happens in the background.
+
+#### 2. Do I need to sign in with Google every time?
+
+No. After the first successful sign-in, the skill reuses local browser state.
+
+#### 3. Can I ask in Chinese?
+
+Yes. You can talk to Codex in Chinese, and the skill uses a more compatibility-friendly internal path for the NotebookLM side.
+
+#### 4. Is this using an official NotebookLM API?
+
+No. The current approach is browser automation, which is what makes the workflow usable today without a public API designed for this exact scenario.
+
+#### 5. Does this completely eliminate hallucinations?
+
+No. A more accurate claim is that it improves source grounding and lowers hallucination risk, especially when your important material already lives in NotebookLM.
+
+#### 6. When is this skill most useful?
+
+It is most useful when your documents already live in NotebookLM and you want Codex to become the main place where you ask, summarize, iterate, and keep working.
 
 ### One-sentence summary
 

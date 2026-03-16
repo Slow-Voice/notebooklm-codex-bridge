@@ -2,6 +2,22 @@
 
 Query Google NotebookLM from local Codex with browser automation, persistent authentication, local notebook routing, and source-grounded answers.
 
+## Install URL
+
+Use this exact GitHub path with `$skill install`:
+
+```text
+https://github.com/Slow-Voice/notebooklm-codex-bridge/tree/main/notebooklm-codex-bridge
+```
+
+Do not use the bare repository URL:
+
+```text
+https://github.com/Slow-Voice/notebooklm-codex-bridge
+```
+
+The current Codex GitHub skill installer requires a repo-internal path and rejects bare repo URLs.
+
 This project turns NotebookLM into a practical backend for Codex workflows:
 - ask NotebookLM from Codex without copy-pasting
 - keep Google login state locally
@@ -69,6 +85,12 @@ https://github.com/Slow-Voice/notebooklm-codex-bridge/tree/main/notebooklm-codex
 ```
 
 That URL points to the actual skill directory and is the URL that should be used for direct Codex skill import.
+
+Example:
+
+```text
+$skill install https://github.com/Slow-Voice/notebooklm-codex-bridge/tree/main/notebooklm-codex-bridge
+```
 
 ### Manual install
 

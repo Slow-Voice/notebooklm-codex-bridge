@@ -1,0 +1,7 @@
+interface:
+  display_name: "NotebookLM Bridge"
+  short_description: "Query NotebookLM notebooks from local Codex."
+  default_prompt: "Use $NotebookLM Bridge to query my NotebookLM notebook and return a source-grounded answer."
+
+policy:
+  allow_implicit_invocation: true

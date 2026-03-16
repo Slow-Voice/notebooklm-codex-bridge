@@ -31,36 +31,57 @@ It is especially useful when:
 - Direct client invocation support through `$NotebookLM Bridge`
 - Local isolated Python environment per skill
 
-## Project Structure
+## Repository Layout
+
+This repository is structured as a GitHub project at the root, with the installable skill stored in a nested folder:
 
 ```text
 notebooklm-codex-bridge/
-|- SKILL.md
 |- README.md
-|- requirements.txt
 |- .gitignore
-|- agents/
-|  |- openai.yaml
-|- references/
-|  |- setup.md
-|- scripts/
-   |- run.py
-   |- setup_environment.py
-   |- auth_manager.py
-   |- notebook_manager.py
-   |- ask_question.py
-   |- smart_query.py
-   |- browser_utils.py
-   |- cleanup_manager.py
-   |- config.py
+|- notebooklm-codex-bridge/
+   |- SKILL.md
+   |- requirements.txt
+   |- agents/
+   |  |- openai.yaml
+   |- references/
+   |  |- setup.md
+   |- scripts/
+      |- run.py
+      |- setup_environment.py
+      |- auth_manager.py
+      |- notebook_manager.py
+      |- ask_question.py
+      |- smart_query.py
+      |- browser_utils.py
+      |- cleanup_manager.py
+      |- config.py
 ```
 
 ## Installation
 
-Place this folder inside your local Codex skills directory:
+### Install directly from GitHub
 
-```powershell
-C:\Users\YAN10\.codex\skills\notebooklm-codex-bridge
+Use the nested skill path URL, not the repository root URL:
+
+```text
+https://github.com/Slow-Voice/notebooklm-codex-bridge/tree/main/notebooklm-codex-bridge
+```
+
+That URL points to the actual skill directory and is the URL that should be used for direct Codex skill import.
+
+### Manual install
+
+Copy the nested `notebooklm-codex-bridge/` skill folder into your Codex skills directory:
+
+```text
+$CODEX_HOME/skills/
+```
+
+On most local installations this resolves to:
+
+```text
+~/.codex/skills/
 ```
 
 The first run will create a local `.venv` and install dependencies automatically.
@@ -98,7 +119,7 @@ $NotebookLM Bridge answer only from my notebook and do not add unsupported detai
 ```
 
 ```text
-$NotebookLM Bridge 帮我总结颅内生殖细胞瘤那个 notebook 的预测方案，只根据 notebook 回答
+$NotebookLM Bridge summarize the prediction approaches in my intracranial germ cell tumor notebook
 ```
 
 The intended behavior is:
@@ -161,10 +182,10 @@ python scripts\run.py smart_query.py --request "summarize the prediction approac
 
 ## Publishing Notes
 
-If you publish this repository to GitHub:
+If you publish or fork this repository:
 - keep `.gitignore` intact
 - make sure no local auth or browser state files are included
-- consider replacing local absolute paths in examples if you want the repo to be portable
+- share the nested skill URL, not the repository root URL, when someone wants to import it directly
 
 ## Credits
 

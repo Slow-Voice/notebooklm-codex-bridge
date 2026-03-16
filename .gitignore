@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+data/browser_state/
+data/auth_info.json
+data/library.json
+
+notebooklm_request*.txt
+*.log
